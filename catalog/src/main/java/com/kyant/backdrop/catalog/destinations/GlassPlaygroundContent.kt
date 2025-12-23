@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -87,7 +86,6 @@ fun GlassPlaygroundContent() {
                         scaleX = zoom
                         scaleY = zoom
                         rotationZ = rotation
-                        transformOrigin = TransformOrigin(0.5f, 0.5f)
                     }
                 )
                 .pointerInput(animationScope) {

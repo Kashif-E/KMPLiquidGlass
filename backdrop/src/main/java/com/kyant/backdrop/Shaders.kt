@@ -161,6 +161,7 @@ half4 main(float2 coord) {
 internal const val DefaultHighlightShaderString = """
 uniform float2 size;
 uniform float4 cornerRadii;
+layout(color) uniform half4 color;
 uniform float angle;
 uniform float falloff;
 
@@ -176,7 +177,7 @@ half4 main(float2 coord) {
     float2 normal = float2(cos(angle), sin(angle));
     float d = dot(grad, normal);
     float intensity = pow(abs(d), falloff);
-    return half4(1.0) * intensity;
+    return color * intensity;
 }"""
 
 @Language("AGSL")

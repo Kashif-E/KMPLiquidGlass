@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shader
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.util.fastCoerceAtMost
 import com.kyant.backdrop.AmbientHighlightShaderString
@@ -46,14 +47,25 @@ interface HighlightStyle {
 
     @Immutable
     data class Default(
-        @param:FloatRange(from = 0.0, to = 1.0) val intensity: Float = 0.5f,
+        override val color: Color = Color.White.copy(alpha = 0.5f),
+        override val blendMode: BlendMode = BlendMode.Plus,
         val angle: Float = 45f,
         @param:FloatRange(from = 0.0) val falloff: Float = 1f
     ) : HighlightStyle {
 
-        override val color: Color = Color.White.copy(alpha = intensity)
-
-        override val blendMode: BlendMode = BlendMode.Plus
+        @Deprecated(
+            "Use the constructor with color parameter instead.",
+            ReplaceWith("HighlightStyle.Default(color = Color.White.copy(alpha = intensity), angle = angle, falloff = falloff)")
+        )
+        constructor(
+            intensity: Float,
+            angle: Float = 45f,
+            falloff: Float = 1f
+        ) : this(
+            color = Color.White.copy(alpha = intensity),
+            angle = angle,
+            falloff = falloff
+        )
 
         @RequiresApi(Build.VERSION_CODES.S)
         override fun DrawScope.createShader(
@@ -67,6 +79,7 @@ interface HighlightStyle {
                 ).apply {
                     setFloatUniform("size", size.width, size.height)
                     setFloatUniform("cornerRadii", getCornerRadii(shape))
+                    setColorUniform("color", color.copy(alpha = 1f).toArgb())
                     setFloatUniform("angle", angle * (PI / 180f).toFloat())
                     setFloatUniform("falloff", falloff)
                 }
