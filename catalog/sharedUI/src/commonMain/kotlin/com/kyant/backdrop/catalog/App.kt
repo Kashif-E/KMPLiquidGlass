@@ -1,4 +1,4 @@
-package org.company.app
+package com.kyant.backdrop.catalog
 
 
 // Common Backdrop library imports (work on both Android and iOS)
@@ -41,7 +41,6 @@ import com.example.backdropdemo.components.LiquidBottomTabs
 import com.kyant.backdrop.Backdrop
 import com.kyant.backdrop.BackdropEffectScope
 import com.kyant.backdrop.backdrops.CanvasBackdrop
-import com.kyant.backdrop.catalog.MainContent
 import com.kyant.backdrop.drawBackdrop
 import com.kyant.backdrop.effects.blur
 import com.kyant.backdrop.effects.colorControls
@@ -51,10 +50,6 @@ import com.kyant.backdrop.highlight.Highlight
 import com.kyant.backdrop.shadow.InnerShadow
 import com.kyant.backdrop.shadow.Shadow
 
-/**
- * Demo composable that showcases all capabilities of the Backdrop library.
- * This can be used on both Android and iOS platforms.
- */
 @Composable
 fun BackdropDemoScreen() {
     MainContent()
@@ -62,7 +57,6 @@ fun BackdropDemoScreen() {
 
 @Composable
 private fun MainContentX() {
-    // Create a colorful gradient background to demonstrate effects
     val gradientBackdrop = CanvasBackdrop {
         drawRect(
             brush = Brush.linearGradient(

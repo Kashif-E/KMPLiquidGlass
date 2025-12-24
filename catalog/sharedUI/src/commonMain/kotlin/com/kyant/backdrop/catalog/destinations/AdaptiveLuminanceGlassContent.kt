@@ -41,8 +41,7 @@ import kotlin.math.sin
 fun AdaptiveLuminanceGlassContent() {
     val isLightTheme = !isSystemInDarkTheme()
 
-    // For cross-platform, we use a simplified approach without real-time luminance detection
-    // The luminance-based adaptation is simulated based on theme
+
     val luminanceAnimation = remember { Animatable(if (isLightTheme) 0.7f else 0.3f) }
     val contentColorAnimation = remember {
         Animatable(if (isLightTheme) Color.Black else Color.White)
