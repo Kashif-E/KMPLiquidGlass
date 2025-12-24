@@ -21,12 +21,12 @@ import com.kyant.backdrop.drawPlainBackdrop
 import com.kyant.backdrop.effects.progressiveBlur
 
 @Composable
-fun ProgressiveBlurContent() {
+fun ProgressiveBlurContent(onBack: () -> Unit = {}) {
     val isLightTheme = !isSystemInDarkTheme()
     val contentColor = if (isLightTheme) Color.Black else Color.White
     val tintColor = if (isLightTheme) Color.White else Color(0xFF808080)
 
-    BackdropDemoScaffold { backdrop ->
+    BackdropDemoScaffold(onBack = onBack) { backdrop ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)

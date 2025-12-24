@@ -12,6 +12,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/backdrop" />
             <option value="$PROJECT_DIR$/catalog" />
+            <option value="$PROJECT_DIR$/catalog/androidApp" />
+            <option value="$PROJECT_DIR$/catalog/sharedUI" />
           </set>
         </option>
       </GradleProjectSettings>

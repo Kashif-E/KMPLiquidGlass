@@ -43,7 +43,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 @Composable
-fun GlassPlaygroundContent() {
+fun GlassPlaygroundContent(onBack: () -> Unit = {}) {
     val animationScope = rememberCoroutineScope()
     val offsetAnimation = remember { Animatable(Offset.Zero, Offset.VectorConverter) }
     val zoomAnimation = remember { Animatable(1f) }
@@ -57,7 +57,7 @@ fun GlassPlaygroundContent() {
     var refractionAmountFrac by remember { mutableFloatStateOf(0.2f) }
     var chromaticAberration by remember { mutableFloatStateOf(0f) }
 
-    BackdropDemoScaffold { backdrop ->
+    BackdropDemoScaffold(onBack = onBack) { backdrop ->
         Box(
             Modifier
                 .padding(top = 48f.dp)

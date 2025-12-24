@@ -33,7 +33,7 @@ import com.kyant.backdrop.highlight.Highlight
 
 
 @Composable
-fun DialogContent() {
+fun DialogContent(onBack: () -> Unit = {}) {
     val isLightTheme = !isSystemInDarkTheme()
     val contentColor = if (isLightTheme) Color.Black else Color.White
     val accentColor =
@@ -51,6 +51,7 @@ fun DialogContent() {
             drawContent()
             drawRect(dimColor)
         },
+        onBack = onBack
       //  initialPainterResId = R.drawable.system_home_screen_light
     ) { backdrop ->
         Column(

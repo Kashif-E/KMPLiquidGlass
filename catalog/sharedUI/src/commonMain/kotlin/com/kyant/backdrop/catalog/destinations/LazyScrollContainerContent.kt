@@ -22,8 +22,8 @@ import com.kyant.backdrop.effects.lens
 import com.kyant.backdrop.effects.vibrancy
 
 @Composable
-fun LazyScrollContainerContent() {
-    BackdropDemoScaffold { backdrop ->
+fun LazyScrollContainerContent(onBack: () -> Unit = {}) {
+    BackdropDemoScaffold(onBack = onBack) { backdrop ->
         LazyColumn(
             Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16f.dp),

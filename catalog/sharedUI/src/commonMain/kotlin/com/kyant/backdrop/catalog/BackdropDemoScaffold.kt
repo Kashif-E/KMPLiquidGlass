@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,6 +17,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -36,6 +38,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun BackdropDemoScaffold(
     modifier: Modifier = Modifier,
+    onBack: (() -> Unit)? = null,
     content: @Composable BoxScope.(backdrop: LayerBackdrop) -> Unit
 ) {
     Box(
@@ -80,6 +83,24 @@ fun BackdropDemoScaffold(
         }
 
         content(backdrop)
+
+
+        if (onBack != null) {
+            LiquidButton(
+                onBack,
+                backdrop,
+                Modifier.clip(CircleShape)
+                    .padding(16f.dp)
+                    .align(Alignment.TopStart),
+                tint = Color(0xFF0088FF),
+            ) {
+                BasicText(
+                    "Back",
+                    Modifier.padding(horizontal = 16f.dp, vertical = 12f.dp),
+                    style = TextStyle(Color.White, 16f.sp)
+                )
+            }
+        }
 
         LiquidButton(
             { singleImagePicker.launch() },

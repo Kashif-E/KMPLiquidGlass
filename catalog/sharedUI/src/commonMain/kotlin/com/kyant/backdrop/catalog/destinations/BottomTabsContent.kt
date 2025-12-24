@@ -29,7 +29,7 @@ import kmpliquidglass.catalog.sharedui.generated.resources.ic_cyclone
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun BottomTabsContent() {
+fun BottomTabsContent(onBack: () -> Unit = {}) {
     val isLightTheme = !isSystemInDarkTheme()
     val contentColor = if (isLightTheme) Color.Black else Color.White
 
@@ -37,6 +37,7 @@ fun BottomTabsContent() {
     val iconColorFilter = ColorFilter.tint(contentColor)
 
     BackdropDemoScaffold(
+        onBack = onBack
     ) { backdrop ->
         Column(verticalArrangement = Arrangement.spacedBy(32f.dp)) {
             Block {

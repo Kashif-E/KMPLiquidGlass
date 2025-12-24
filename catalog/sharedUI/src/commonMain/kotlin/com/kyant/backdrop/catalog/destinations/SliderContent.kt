@@ -22,13 +22,13 @@ import com.kyant.backdrop.catalog.BackdropDemoScaffold
 import com.kyant.backdrop.catalog.components.LiquidSlider
 
 @Composable
-fun SliderContent() {
+fun SliderContent(onBack: () -> Unit = {}) {
     val isLightTheme = !isSystemInDarkTheme()
     val backgroundColor =
         if (isLightTheme) Color(0xFFFFFFFF)
         else Color(0xFF121212)
 
-    BackdropDemoScaffold { backdrop ->
+    BackdropDemoScaffold(onBack = onBack) { backdrop ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16f.dp)

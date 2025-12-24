@@ -29,8 +29,9 @@ kotlin {
             // Use local backdrop library
             implementation(project(":backdrop"))
             
-            implementation("io.github.shadmanadman:KSensor:1.90.40")
-            implementation("io.github.onseok:peekaboo-image-picker:0.5.2")
+            implementation(libs.ksensor)
+            implementation(libs.peekaboo.image.picker)
+            implementation(libs.ui.backhandler)
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(compose.foundation)

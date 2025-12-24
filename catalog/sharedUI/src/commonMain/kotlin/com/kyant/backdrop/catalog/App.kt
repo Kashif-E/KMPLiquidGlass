@@ -1,12 +1,7 @@
 package com.kyant.backdrop.catalog
 
 
-// Common Backdrop library imports (work on both Android and iOS)
 
-
-// Common Backdrop library imports (work on both Android and iOS)
-
-// Import the cross-platform LiquidBottomTabs components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -56,7 +51,7 @@ fun BackdropDemoScreen() {
 }
 
 @Composable
-private fun MainContentX() {
+ fun ShaderPlayGround() {
     val gradientBackdrop = CanvasBackdrop {
         drawRect(
             brush = Brush.linearGradient(

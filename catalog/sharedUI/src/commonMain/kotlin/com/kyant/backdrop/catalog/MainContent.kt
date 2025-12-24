@@ -1,12 +1,12 @@
 package com.kyant.backdrop.catalog
 
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.backhandler.BackHandler
 import com.kyant.backdrop.catalog.destinations.AdaptiveLuminanceGlassContent
 import com.kyant.backdrop.catalog.destinations.BottomTabsContent
 import com.kyant.backdrop.catalog.destinations.ButtonsContent
@@ -26,30 +26,33 @@ import com.kyant.backdrop.catalog.destinations.ToggleContent
 fun MainContent() {
     var destination by rememberSaveable { mutableStateOf(CatalogDestination.Home) }
 
-    /*BackHandler(destination != CatalogDestination.Home) {
+    BackHandler(destination != CatalogDestination.Home) {
         destination = CatalogDestination.Home
-    }*/
+    }
 
     when (destination) {
         CatalogDestination.Home -> HomeContent(onNavigate = { destination = it })
 
-        CatalogDestination.Buttons -> ButtonsContent()
-        CatalogDestination.Toggle -> ToggleContent()
-        CatalogDestination.Slider -> SliderContent()
-        CatalogDestination.BottomTabs -> BottomTabsContent()
-        CatalogDestination.Dialog -> DialogContent()
+        CatalogDestination.Buttons -> ButtonsContent(onBack = { destination = CatalogDestination.Home })
+        CatalogDestination.Toggle -> ToggleContent(onBack = { destination = CatalogDestination.Home })
+        CatalogDestination.Slider -> SliderContent(onBack = { destination = CatalogDestination.Home })
+        CatalogDestination.BottomTabs -> BottomTabsContent(onBack = { destination = CatalogDestination.Home })
+        CatalogDestination.Dialog -> DialogContent(onBack = { destination = CatalogDestination.Home })
 
         CatalogDestination.ControlCenter -> {
-            ControlCenterContent()
+            ControlCenterContent(onBack = { destination = CatalogDestination.Home })
         }
-        CatalogDestination.Magnifier -> MagnifierContent()
 
-        CatalogDestination.GlassPlayground -> GlassPlaygroundContent()
+        CatalogDestination.Magnifier -> MagnifierContent(onBack = { destination = CatalogDestination.Home })
+
+        CatalogDestination.GlassPlayground -> GlassPlaygroundContent(onBack = { destination = CatalogDestination.Home })
         CatalogDestination.AdaptiveLuminanceGlass -> {
-            AdaptiveLuminanceGlassContent()
+            AdaptiveLuminanceGlassContent(onBack = { destination = CatalogDestination.Home })
         }
-        CatalogDestination.ProgressiveBlur -> ProgressiveBlurContent()
-        CatalogDestination.ScrollContainer -> ScrollContainerContent()
-        CatalogDestination.LazyScrollContainer -> LazyScrollContainerContent()
+
+        CatalogDestination.ProgressiveBlur -> ProgressiveBlurContent(onBack = { destination = CatalogDestination.Home })
+        CatalogDestination.ScrollContainer -> ScrollContainerContent(onBack = { destination = CatalogDestination.Home })
+        CatalogDestination.LazyScrollContainer -> LazyScrollContainerContent(onBack = { destination = CatalogDestination.Home })
+        CatalogDestination.Playground -> ShaderPlayGround()
     }
 }

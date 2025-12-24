@@ -66,7 +66,7 @@ import kotlin.math.PI
 import kotlin.math.atan2
 
 @Composable
-fun ControlCenterContent() {
+fun ControlCenterContent(onBack: () -> Unit = {}) {
     val isLightTheme = !isSystemInDarkTheme()
     val accentColor =
         if (isLightTheme) Color(0xFF0088FF)
@@ -235,6 +235,7 @@ fun ControlCenterContent() {
 
     BackdropDemoScaffold(
         backdropModifier,
+        onBack = onBack
     ) { backdrop ->
         Column(
             Modifier

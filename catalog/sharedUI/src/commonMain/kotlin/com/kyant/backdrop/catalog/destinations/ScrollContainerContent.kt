@@ -21,8 +21,8 @@ import com.kyant.backdrop.effects.lens
 import com.kyant.backdrop.effects.vibrancy
 
 @Composable
-fun ScrollContainerContent() {
-    BackdropDemoScaffold { backdrop ->
+fun ScrollContainerContent(onBack: () -> Unit = {}) {
+    BackdropDemoScaffold(onBack = onBack) { backdrop ->
         Column(
             Modifier
                 .verticalScroll(rememberScrollState())

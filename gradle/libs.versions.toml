@@ -1,11 +1,14 @@
 [versions]
 agp = "8.13.1"
-kotlin = "2.2.21"
-compose-multiplatform = "1.7.3"
+kotlin = "2.3.0"
+compose-multiplatform = "1.9.3"
 
-activity = "1.12.1"
+activity = "1.12.2"
 core = "1.17.0"
 compose = "1.10.0"
+ksensor = "1.90.40"
+peekaboo-image-picker = "0.5.2"
+ui-backhandler = "1.9.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core" }
@@ -14,6 +17,9 @@ androidx-compose-foundation = { group = "androidx.compose.foundation", name = "f
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "compose" }
 androidx-compose-material-ripple = { group = "androidx.compose.material", name = "material-ripple", version.ref = "compose" }
+ksensor = { module = "io.github.shadmanadman:KSensor", version.ref = "ksensor" }
+peekaboo-image-picker = { module = "io.github.onseok:peekaboo-image-picker", version.ref = "peekaboo-image-picker" }
+ui-backhandler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "ui-backhandler" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

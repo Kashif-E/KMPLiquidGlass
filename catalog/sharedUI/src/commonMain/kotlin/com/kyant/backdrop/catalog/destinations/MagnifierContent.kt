@@ -34,7 +34,7 @@ import com.kyant.backdrop.shadow.InnerShadow
 
 
 @Composable
-fun MagnifierContent() {
+fun MagnifierContent(onBack: () -> Unit = {}) {
     val isLightTheme = !isSystemInDarkTheme()
     val contentColor = if (isLightTheme) Color.Black else Color.White
     val accentColor =
@@ -44,7 +44,7 @@ fun MagnifierContent() {
         if (isLightTheme) Color(0xFFFFFFFF)
         else Color(0xFF121212)
 
-    BackdropDemoScaffold { backdrop ->
+    BackdropDemoScaffold(onBack = onBack) { backdrop ->
         val contentBackdrop = rememberLayerBackdrop()
         val cursorBackdrop = rememberLayerBackdrop()
         var offset by remember { mutableStateOf(Offset.Zero) }

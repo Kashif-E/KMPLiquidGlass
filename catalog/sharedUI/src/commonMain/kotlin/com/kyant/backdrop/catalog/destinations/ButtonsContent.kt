@@ -13,8 +13,8 @@ import com.kyant.backdrop.catalog.BackdropDemoScaffold
 import com.kyant.backdrop.catalog.components.LiquidButton
 
 @Composable
-fun ButtonsContent() {
-    BackdropDemoScaffold { backdrop ->
+fun ButtonsContent(onBack: () -> Unit = {}) {
+    BackdropDemoScaffold(onBack = onBack) { backdrop ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16f.dp)

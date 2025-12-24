@@ -38,7 +38,7 @@ import kotlin.math.sign
 import kotlin.math.sin
 
 @Composable
-fun AdaptiveLuminanceGlassContent() {
+fun AdaptiveLuminanceGlassContent(onBack: () -> Unit = {}) {
     val isLightTheme = !isSystemInDarkTheme()
 
 
@@ -52,7 +52,7 @@ fun AdaptiveLuminanceGlassContent() {
     val zoomAnimation = remember { Animatable(1f) }
     val rotationAnimation = remember { Animatable(0f) }
 
-    BackdropDemoScaffold { backdrop ->
+    BackdropDemoScaffold(onBack = onBack) { backdrop ->
         Box(
             Modifier
                 .drawBackdrop(
