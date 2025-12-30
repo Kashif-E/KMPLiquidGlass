@@ -7,14 +7,14 @@ plugins {
 }
 
 android {
-    namespace = "com.kyant.backdrop.catalog"
+    namespace = "com.kashif_e.backdrop.catalog"
     compileSdk = 36
 
     defaultConfig {
         minSdk = 24
         targetSdk = 36
 
-        applicationId = "com.kyant.backdrop.catalog"
+        applicationId = "com.kashif_e.backdrop.catalog"
         versionCode = 1
         versionName = "1.0.0"
     }
