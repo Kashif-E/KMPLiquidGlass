@@ -1,9 +1,18 @@
-# Android Liquid Glass (Backdrop)
+# KMP Liquid Glass (Backdrop) 
 
-![frontPhoto](artworks/banner.jpg)
+Original Author: [Kyant](github.com/kyant)
+
+![frontPhoto](artworks/liquid_glass_kmp.png)
 
 A customizable Liquid Glass effect library for Jetpack Compose.
 
+
+## Supported Platforms
+- Android
+- Desktop (JVM)
+- iOS 
+- Web
+- 
 ## Docs
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.kashif-mehmood-km/backdrop)](https://central.sonatype.com/artifact/io.github.kashif-mehmood-km/backdrop)
@@ -25,7 +34,7 @@ Below are some example components:
 
 - [Backdrop Catalog](./catalog/release/catalog-release.apk)
 
-![Screenshots of Backdrop Catalog KMP](artworks/liquid_glass_kmp.png)
+![Screenshots of Backdrop Catalog KMP](artworks/banner.jpg)
 ![Screenshots of Backdrop Catalog](artworks/catalog_app.jpg)
 
 - **(Deprecated)** [Liquid Glass Playground](./app/release/app-release.apk) (Android 13+)
