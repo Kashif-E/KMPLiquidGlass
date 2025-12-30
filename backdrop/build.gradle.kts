@@ -99,15 +99,15 @@ android {
 
 mavenPublishing {
     publishToMavenCentral()
-    // signAllPublications() // Disabled for local development - enable for release
+     signAllPublications() // Disabled for local development - enable for release
 
-    coordinates("io.github.kyant0", "backdrop", "0.0.8-alpha11")
+    coordinates("io.github.kashif-mehmood-km", "backdrop", "0.0.1-alpha01")
 
     pom {
         name.set("Backdrop")
         description.set("Compose Multiplatform blur and Liquid Glass effects")
         inceptionYear.set("2025")
-        url.set("https://github.com/Kyant0/AndroidLiquidGlass")
+        url.set("https://github.com/Kashif-E/KMPLiquidGlass")
         licenses {
             license {
                 name.set("The Apache License, Version 2.0")
@@ -117,15 +117,15 @@ mavenPublishing {
         }
         developers {
             developer {
-                id.set("Kyant0")
-                name.set("Kyant0")
-                url.set("https://github.com/Kyant0")
+                id.set("Kashif-E")
+                name.set("Kashif-E")
+                url.set("https://github.com/Kashif-E")
             }
         }
         scm {
-            url.set("https://github.com/Kyant0/AndroidLiquidGlass")
-            connection.set("scm:git:git://github.com/Kyant0/AndroidLiquidGlass.git")
-            developerConnection.set("scm:git:ssh://git@github.com/Kyant0/AndroidLiquidGlass.git")
+            url.set("https://github.com/Kashif-E/KMPLiquidGlass")
+            connection.set("scm:git:git://github.com/Kashif-E/KMPLiquidGlass.git")
+            developerConnection.set("scm:git:ssh://git@github.com/Kashif-E/KMPLiquidGlass.git")
         }
     }
 }

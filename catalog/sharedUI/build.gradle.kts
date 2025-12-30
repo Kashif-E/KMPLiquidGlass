@@ -41,9 +41,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            // Use local backdrop library
             implementation(project(":backdrop"))
-            
             implementation(libs.calf.file.picker)
             implementation(compose.runtime)
             implementation(compose.ui)

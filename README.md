@@ -6,7 +6,7 @@ A customizable Liquid Glass effect library for Jetpack Compose.
 
 ## Docs
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.kyant0/backdrop)](https://central.sonatype.com/artifact/io.github.kyant0/backdrop)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kashif-mehmood-km/backdrop)](https://central.sonatype.com/artifact/io.github.kashif-mehmood-km/backdrop)
 
 [Documentation](https://kyant.gitbook.io/backdrop)
 
@@ -14,6 +14,7 @@ A customizable Liquid Glass effect library for Jetpack Compose.
 
 The library does not include any high-level components; you will need to create your own.
 Below are some example components:
+
 
 - [LiquidButton](/catalog/src/main/java/com/kyant/backdrop/catalog/components/LiquidButton.kt)
 - [LiquidToggle](/catalog/src/main/java/com/kyant/backdrop/catalog/components/LiquidToggle.kt)
@@ -24,6 +25,7 @@ Below are some example components:
 
 - [Backdrop Catalog](./catalog/release/catalog-release.apk)
 
+![Screenshots of Backdrop Catalog KMP](artworks/liquid_glass_kmp.png)
 ![Screenshots of Backdrop Catalog](artworks/catalog_app.jpg)
 
 - **(Deprecated)** [Liquid Glass Playground](./app/release/app-release.apk) (Android 13+)
