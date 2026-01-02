@@ -53,6 +53,7 @@ fun HomeContent(onNavigate: (CatalogDestination) -> Unit) {
 
             Subtitle("System UIs")
             ListItem({ onNavigate(CatalogDestination.ControlCenter) }, "Control center")
+            ListItem({ onNavigate(CatalogDestination.LockScreen) }, "Lock screen (SDF)")
             ListItem({ onNavigate(CatalogDestination.Magnifier) }, "Magnifier")
 
             Subtitle("Experiments")

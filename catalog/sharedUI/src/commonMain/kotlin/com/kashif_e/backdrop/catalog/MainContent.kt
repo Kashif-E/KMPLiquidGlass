@@ -14,6 +14,7 @@ import com.kashif_e.backdrop.catalog.destinations.GlassPlaygroundContent
 import com.kashif_e.backdrop.catalog.destinations.HomeContent
 import com.kashif_e.backdrop.catalog.destinations.AllComponentsContent
 import com.kashif_e.backdrop.catalog.destinations.LazyScrollContainerContent
+import com.kashif_e.backdrop.catalog.destinations.LockScreenContent
 import com.kashif_e.backdrop.catalog.destinations.MagnifierContent
 import com.kashif_e.backdrop.catalog.destinations.ProgressiveBlurContent
 import com.kashif_e.backdrop.catalog.destinations.ScrollContainerContent
@@ -36,6 +37,10 @@ fun MainContent() {
 
         CatalogDestination.ControlCenter -> {
             ControlCenterContent(onBack = { destination = CatalogDestination.Home })
+        }
+
+        CatalogDestination.LockScreen -> {
+            LockScreenContent(onBack = { destination = CatalogDestination.Home })
         }
 
         CatalogDestination.Magnifier -> MagnifierContent(onBack = { destination = CatalogDestination.Home })
