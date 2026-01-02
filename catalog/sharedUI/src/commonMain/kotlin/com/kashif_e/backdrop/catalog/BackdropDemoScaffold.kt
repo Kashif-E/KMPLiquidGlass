@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -42,6 +43,7 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun BackdropDemoScaffold(
     modifier: Modifier = Modifier,
+    initialPainter: Painter = painterResource(Res.drawable.lions),
     onBack: (() -> Unit)? = null,
     content: @Composable BoxScope.(backdrop: LayerBackdrop) -> Unit
 ) {
@@ -80,7 +82,7 @@ fun BackdropDemoScaffold(
             )
         } else {
             Image(
-                painterResource(Res.drawable.lions),
+                initialPainter,
                 contentDescription = null,
                 Modifier
                     .layerBackdrop(backdrop)
