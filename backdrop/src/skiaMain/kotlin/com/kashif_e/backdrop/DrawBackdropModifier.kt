@@ -242,6 +242,8 @@ private class DrawBackdropNode(
     var onDrawFront: (DrawScope.() -> Unit)?
 ) : LayoutModifierNode, DrawModifierNode, GlobalPositionAwareModifierNode, ObserverModifierNode, Modifier.Node() {
 
+    override val shouldAutoInvalidate: Boolean = false
+
     private val effectScope = object : BackdropEffectScopeImpl() {
         override val shape: Shape get() = shapeProvider.innerShape
     }

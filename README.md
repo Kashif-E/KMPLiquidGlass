@@ -147,6 +147,39 @@ effects = {
 }
 ```
 
+### SDF shader
+
+Applies advanced glass texture effects using a Signed Distance Field (SDF) texture. Creates realistic glass refraction with bevel lighting for 3D appearance.
+
+```kotlin
+val sdfBitmap = imageResource(Res.drawable.sdf_texture)
+val sdfShader = rememberSdfShader(sdfBitmap)
+
+Modifier.drawPlainBackdrop(
+    backdrop = backdrop,
+    shape = { RoundedCornerShape(50.dp) },
+    effects = {
+        blur(2.dp.toPx())
+        with(sdfShader) { 
+            apply(
+                refractionHeight = 48.dp.toPx(),  // Refraction intensity
+                lightAngle = 45f                   // Light direction in degrees
+            )
+        }
+    }
+)
+```
+
+The SDF texture encodes:
+- **R channel:** Distance to nearest edge
+- **GB channels:** Surface normals for refraction direction  
+- **A channel:** Alpha mask
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `refractionHeight` | Float | 48.dp | Height/intensity of refraction effect |
+| `lightAngle` | Float | 45° | Angle of light source for bevel highlights |
+
 ## Highlights and shadows
 
 Beyond effects, you can add highlights and shadows for depth:

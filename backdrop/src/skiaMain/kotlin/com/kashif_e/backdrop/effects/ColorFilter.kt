@@ -2,6 +2,7 @@ package com.kashif_e.backdrop.effects
 
 import com.kashif_e.backdrop.BackdropEffectScope
 import com.kashif_e.backdrop.GammaAdjustmentShaderString
+import com.kashif_e.backdrop.ReflectiveGlassShaderString
 import com.kashif_e.backdrop.platform.PlatformCapabilities
 import com.kashif_e.backdrop.platform.PlatformRenderEffect
 import com.kashif_e.backdrop.platform.PlatformRuntimeShader
@@ -85,6 +86,42 @@ actual fun BackdropEffectScope.gammaAdjustment(power: Float) {
     val shader = PlatformRuntimeShader.create(GammaAdjustmentShaderString)
     if (shader != null) {
         shader.setFloatUniform("power", power)
+        // Pass the current imageFilter as input so the shader samples from it
+        val currentFilter = imageFilter
+        val effect = shader.asRenderEffectWithInput(
+            childShaderName = "content",
+            input = currentFilter
+        )
+        // Set imageFilter directly since we're replacing the entire chain
+        imageFilter = (effect as? PlatformRenderEffect.Skia)?.imageFilter
+    }
+}
+
+/**
+ * Applies a reflective glass effect to the backdrop.
+ * 
+ * Creates a mirror-like reflection with optional distortion and chromatic aberration,
+ * simulating light reflecting off a curved glass surface.
+ * 
+ * Uses SkSL RuntimeShader for cross-platform support on iOS/Desktop/Web.
+ */
+actual fun BackdropEffectScope.reflectiveGlass(
+    reflectionStrength: Float,
+    distortionAmount: Float,
+    chromaticAberration: Float,
+    vignetteStrength: Float
+) {
+    if (!PlatformCapabilities.supportsRuntimeShader) return
+    if (reflectionStrength <= 0f) return
+    
+    val shader = PlatformRuntimeShader.create(ReflectiveGlassShaderString)
+    if (shader != null) {
+        shader.setFloatUniform("size", size.width, size.height)
+        shader.setFloatUniform("reflectionStrength", reflectionStrength.coerceIn(0f, 1f))
+        shader.setFloatUniform("distortionAmount", distortionAmount.coerceIn(0f, 0.5f))
+        shader.setFloatUniform("chromaticAberration", chromaticAberration.coerceIn(0f, 0.1f))
+        shader.setFloatUniform("vignetteStrength", vignetteStrength.coerceIn(0f, 1f))
+        
         // Pass the current imageFilter as input so the shader samples from it
         val currentFilter = imageFilter
         val effect = shader.asRenderEffectWithInput(

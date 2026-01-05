@@ -1,4 +1,4 @@
-package com.kashif_e.backdrop.catalog.utils
+package com.kashif_e.backdrop.effects
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -6,8 +6,6 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asSkiaBitmap
 import androidx.compose.ui.unit.dp
 import com.kashif_e.backdrop.BackdropEffectScope
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.imageResource
 import org.jetbrains.skia.FilterTileMode
 import org.jetbrains.skia.Image
 import org.jetbrains.skia.ImageFilter
@@ -23,7 +21,7 @@ import org.jetbrains.skia.Shader
  * It samples from an SDF texture to create advanced glass refraction effects
  * with bevel lighting for realistic 3D appearance.
  */
-private const val SdfRefractionShaderString = """
+private const val SDF_REFRACTION_SHADER_STRING = """
 uniform shader content;
 uniform shader sdfTex;
 
@@ -85,12 +83,15 @@ half4 main(float2 coord) {
  * @param sdfBitmap The SDF texture as an ImageBitmap
  */
 actual class SdfShader(
-    val sdfBitmap: ImageBitmap
+    internal val sdfImageBitmap: ImageBitmap
 ) {
+    actual val width: Int get() = sdfImageBitmap.width
+    actual val height: Int get() = sdfImageBitmap.height
+
     private val skiaImage: Image by lazy {
-        Image.makeFromBitmap(sdfBitmap.asSkiaBitmap())
+        Image.makeFromBitmap(sdfImageBitmap.asSkiaBitmap())
     }
-    
+
     // Create the SDF texture shader
     private val sdfTextureShader: Shader by lazy {
         skiaImage.makeShader(
@@ -99,7 +100,7 @@ actual class SdfShader(
             sampling = SamplingMode.LINEAR
         )
     }
-    
+
     /**
      * Apply the SDF shader effect to the backdrop.
      * 
@@ -110,30 +111,26 @@ actual class SdfShader(
         refractionHeight: Float = 48f.dp.toPx(),
         lightAngle: Float = 45f
     ) {
-        val effect = RuntimeEffect.makeForShader(SdfRefractionShaderString)
-        if (effect == null) {
-            // Shader compilation failed - skip effect silently
-            return
-        }
-        
+        val effect = RuntimeEffect.makeForShader(SDF_REFRACTION_SHADER_STRING) ?: return
+
         val builder = RuntimeShaderBuilder(effect)
         builder.uniform("size", size.width, size.height)
-        builder.uniform("sdfTexSize", sdfBitmap.width.toFloat(), sdfBitmap.height.toFloat())
+        builder.uniform("sdfTexSize", sdfImageBitmap.width.toFloat(), sdfImageBitmap.height.toFloat())
         builder.uniform("refractionHeight", refractionHeight)
         builder.uniform("lightAngle", lightAngle)
-        
+
         // Pass the SDF texture as a child shader
         builder.child("sdfTex", sdfTextureShader)
-        
+
         val currentFilter = imageFilter
-        
+
         // Create the SDF image filter with both content and SDF texture shaders
         val sdfFilter = ImageFilter.makeRuntimeShader(
             runtimeShaderBuilder = builder,
             shaderNames = arrayOf("content"),
             inputs = arrayOf(currentFilter),
         )
-        
+
         if (sdfFilter != null) {
             imageFilter = sdfFilter
         }
@@ -141,12 +138,11 @@ actual class SdfShader(
 }
 
 /**
- * Remember an SdfShader instance for the given drawable resource.
+ * Remember an SdfShader instance for the given ImageBitmap.
  */
 @Composable
-actual fun rememberSdfShader(resource: DrawableResource): SdfShader {
-    val imageBitmap = imageResource(resource)
-    return remember(resource) {
+actual fun rememberSdfShader(imageBitmap: ImageBitmap): SdfShader {
+    return remember(imageBitmap) {
         SdfShader(imageBitmap)
     }
 }

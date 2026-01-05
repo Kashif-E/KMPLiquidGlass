@@ -1,4 +1,4 @@
-package com.kashif_e.backdrop.catalog.utils
+package com.kashif_e.backdrop.effects
 
 import android.graphics.Bitmap
 import android.graphics.BitmapShader
@@ -7,23 +7,22 @@ import android.graphics.Shader
 import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import com.kashif_e.backdrop.BackdropEffectScope
 import org.intellij.lang.annotations.Language
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.imageResource
-import androidx.core.graphics.createBitmap
 
 /**
- * SDF (Signed Distance Field) shader for creating advanced glass texture effects.
- * This is Android-only (requires Android 13+ / API 33 for RuntimeShader).
+ * Android SDF (Signed Distance Field) shader for creating advanced glass texture effects.
+ * Requires Android 13+ (API 33) for RuntimeShader support.
  */
 actual class SdfShader(
-    val sdfBitmap: Bitmap
+    internal val sdfBitmap: Bitmap
 ) {
-    private val sdfTexture =
-        BitmapShader(sdfBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+    actual val width: Int get() = sdfBitmap.width
+    actual val height: Int get() = sdfBitmap.height
+
+    private val sdfTexture = BitmapShader(sdfBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
 
     /**
      * Apply the SDF shader effect to the backdrop.
@@ -36,29 +35,31 @@ actual class SdfShader(
         lightAngle: Float = 45f
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val shader =
-                obtainRuntimeShader("SdfShader", createSdfShaderString()).apply {
-                    setInputBuffer("sdfTex", sdfTexture)
-                    setFloatUniform("size", size.width, size.height)
-                    setFloatUniform("sdfTexSize", sdfBitmap.width.toFloat(), sdfBitmap.height.toFloat())
-                    setFloatUniform("refractionHeight", refractionHeight)
-                    setFloatUniform("lightAngle", lightAngle)
-                }
-            effect(RenderEffect.createRuntimeShaderEffect(shader, "content"))
+            val shader = obtainRuntimeShader("SdfShader", SDF_SHADER_STRING).apply {
+                setInputBuffer("sdfTex", sdfTexture)
+                setFloatUniform("size", size.width, size.height)
+                setFloatUniform("sdfTexSize", sdfBitmap.width.toFloat(), sdfBitmap.height.toFloat())
+                setFloatUniform("refractionHeight", refractionHeight)
+                setFloatUniform("lightAngle", lightAngle)
+            }
+            val currentEffect = renderEffect
+            val sdfEffect = RenderEffect.createRuntimeShaderEffect(shader, "content")
+            renderEffect = if (currentEffect != null) {
+                RenderEffect.createChainEffect(sdfEffect, currentEffect)
+            } else {
+                sdfEffect
+            }
         }
     }
 }
 
 /**
- * Remember an SdfShader instance for the given drawable resource.
+ * Remember an SdfShader instance for the given ImageBitmap.
  */
 @Composable
-actual fun rememberSdfShader(resource: DrawableResource): SdfShader {
-    val context = LocalContext.current
-    val imageBitmap = imageResource(resource)
-    
-    return remember(resource) {
-        val bitmap = createBitmap(imageBitmap.width, imageBitmap.height)
+actual fun rememberSdfShader(imageBitmap: ImageBitmap): SdfShader {
+    return remember(imageBitmap) {
+        val bitmap = Bitmap.createBitmap(imageBitmap.width, imageBitmap.height, Bitmap.Config.ARGB_8888)
         val buffer = IntArray(imageBitmap.width * imageBitmap.height)
         imageBitmap.readPixels(buffer)
         bitmap.setPixels(buffer, 0, imageBitmap.width, 0, 0, imageBitmap.width, imageBitmap.height)
@@ -66,22 +67,8 @@ actual fun rememberSdfShader(resource: DrawableResource): SdfShader {
     }
 }
 
-/**
- * Apply a RenderEffect to the backdrop.
- * This is a convenience function for Android-specific effects.
- */
-fun BackdropEffectScope.effect(effect: RenderEffect) {
-    val currentEffect = renderEffect
-    renderEffect = if (currentEffect != null) {
-        RenderEffect.createChainEffect(effect, currentEffect)
-    } else {
-        effect
-    }
-}
-
 @Language("AGSL")
-private fun createSdfShaderString() =
-    """
+private const val SDF_SHADER_STRING = """
 uniform shader content;
 uniform shader sdfTex;
 

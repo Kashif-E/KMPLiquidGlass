@@ -57,6 +57,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ksensor)
+            implementation(libs.camerak)
         }
 
         val skiaMain by creating {
@@ -67,6 +68,7 @@ kotlin {
             dependsOn(skiaMain)
             dependencies {
                 implementation(libs.ksensor)
+                implementation(libs.camerak)
             }
         }
 
@@ -78,6 +80,8 @@ kotlin {
             dependsOn(skiaMain)
             dependencies {
                 implementation(libs.ui.backhandler)
+                implementation(libs.camerak)
+                implementation(libs.coroutines.swing)
             }
         }
 
