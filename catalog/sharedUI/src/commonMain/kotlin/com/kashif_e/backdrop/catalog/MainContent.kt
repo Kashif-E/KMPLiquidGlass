@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import com.kashif_e.backdrop.catalog.destinations.AdaptiveLuminanceGlassContent
 import com.kashif_e.backdrop.catalog.destinations.BottomTabsContent
 import com.kashif_e.backdrop.catalog.destinations.ButtonsContent
+import com.kashif_e.backdrop.catalog.destinations.CameraBackdropContent
 import com.kashif_e.backdrop.catalog.destinations.ControlCenterContent
 import com.kashif_e.backdrop.catalog.destinations.DialogContent
 import com.kashif_e.backdrop.catalog.destinations.GlassPlaygroundContent
@@ -44,6 +45,10 @@ fun MainContent() {
         }
 
         CatalogDestination.Magnifier -> MagnifierContent(onBack = { destination = CatalogDestination.Home })
+        
+        CatalogDestination.CameraBackdrop -> {
+            CameraBackdropContent(onBack = { destination = CatalogDestination.Home })
+        }
 
         CatalogDestination.GlassPlayground -> GlassPlaygroundContent(onBack = { destination = CatalogDestination.Home })
         CatalogDestination.AdaptiveLuminanceGlass -> {

@@ -8,6 +8,7 @@ import android.graphics.RenderEffect
 import androidx.compose.ui.graphics.asAndroidColorFilter
 import com.kashif_e.backdrop.BackdropEffectScope
 import com.kashif_e.backdrop.GammaAdjustmentShaderString
+import com.kashif_e.backdrop.ReflectiveGlassShaderString
 import com.kashif_e.backdrop.platform.PlatformCapabilities
 import com.kashif_e.backdrop.platform.PlatformRenderEffect
 import kotlin.math.pow
@@ -70,6 +71,33 @@ actual fun BackdropEffectScope.gammaAdjustment(power: Float) {
 
     val shader = obtainRuntimeShader("GammaAdjustment", GammaAdjustmentShaderString).apply {
         setFloatUniform("power", power)
+    }
+    effect(RenderEffect.createRuntimeShaderEffect(shader, "content"))
+}
+
+/**
+ * Applies a reflective glass effect to the backdrop.
+ * 
+ * Creates a mirror-like reflection with optional distortion and chromatic aberration,
+ * simulating light reflecting off a curved glass surface.
+ * 
+ * Requires Android 13+ (API 33) for RuntimeShader support.
+ */
+actual fun BackdropEffectScope.reflectiveGlass(
+    reflectionStrength: Float,
+    distortionAmount: Float,
+    chromaticAberration: Float,
+    vignetteStrength: Float
+) {
+    if (!PlatformCapabilities.supportsRuntimeShader) return
+    if (reflectionStrength <= 0f) return
+
+    val shader = obtainRuntimeShader("ReflectiveGlass", ReflectiveGlassShaderString).apply {
+        setFloatUniform("size", size.width, size.height)
+        setFloatUniform("reflectionStrength", reflectionStrength.coerceIn(0f, 1f))
+        setFloatUniform("distortionAmount", distortionAmount.coerceIn(0f, 0.5f))
+        setFloatUniform("chromaticAberration", chromaticAberration.coerceIn(0f, 0.1f))
+        setFloatUniform("vignetteStrength", vignetteStrength.coerceIn(0f, 1f))
     }
     effect(RenderEffect.createRuntimeShaderEffect(shader, "content"))
 }

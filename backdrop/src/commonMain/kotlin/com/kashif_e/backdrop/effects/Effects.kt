@@ -68,3 +68,21 @@ expect fun BackdropEffectScope.exposureAdjustment(ev: Float)
  * @param power The gamma power value. 1.0 = no change.
  */
 expect fun BackdropEffectScope.gammaAdjustment(power: Float)
+
+/**
+ * Apply a reflective glass effect to the backdrop.
+ * 
+ * Creates a dynamic glass surface with wave distortions, chromatic aberration,
+ * and specular highlights simulating light interacting with curved glass.
+ * 
+ * @param reflectionStrength Overall intensity of the glass effect (0.0 to 1.0).
+ * @param distortionAmount Amount of wave/ripple distortion on the glass surface.
+ * @param chromaticAberration Amount of prismatic color separation at edges.
+ * @param vignetteStrength Strength of edge darkening for depth (0.0 = none, 1.0 = strong).
+ */
+expect fun BackdropEffectScope.reflectiveGlass(
+    reflectionStrength: Float = 0.5f,
+    distortionAmount: Float = 0.1f,
+    chromaticAberration: Float = 0.02f,
+    vignetteStrength: Float = 0.3f
+)

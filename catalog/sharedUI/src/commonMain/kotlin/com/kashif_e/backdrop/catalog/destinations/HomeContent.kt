@@ -55,6 +55,7 @@ fun HomeContent(onNavigate: (CatalogDestination) -> Unit) {
             ListItem({ onNavigate(CatalogDestination.ControlCenter) }, "Control center")
             ListItem({ onNavigate(CatalogDestination.LockScreen) }, "Lock screen (SDF)")
             ListItem({ onNavigate(CatalogDestination.Magnifier) }, "Magnifier")
+            ListItem({ onNavigate(CatalogDestination.CameraBackdrop) }, "Camera backdrop")
 
             Subtitle("Experiments")
             ListItem({ onNavigate(CatalogDestination.GlassPlayground) }, "Glass playground")

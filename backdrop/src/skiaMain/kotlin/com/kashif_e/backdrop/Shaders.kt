@@ -231,3 +231,82 @@ half4 main(float2 coord) {
     color.b = pow(color.b, power);
     return color;
 }"""
+
+/**
+ * Reflective glass shader with wave distortion, chromatic aberration, and vignette.
+ * Creates a dynamic glass surface effect with rippling distortions.
+ * 
+ * SkSL port of the AGSL shader for iOS/Desktop/Web platforms.
+ */
+internal const val ReflectiveGlassShaderString = """
+uniform shader content;
+uniform float2 size;
+uniform float reflectionStrength;
+uniform float distortionAmount;
+uniform float chromaticAberration;
+uniform float vignetteStrength;
+
+half4 main(float2 coord) {
+    // Normalize coordinates to 0-1 range
+    float2 uv = coord / size;
+    float2 center = float2(0.5, 0.5);
+    float2 dir = uv - center;
+    float dist = length(dir);
+    
+    // Create wave/ripple distortion pattern for glass-like effect
+    float wave1 = sin(uv.x * 12.0 + uv.y * 8.0) * 0.5 + 0.5;
+    float wave2 = sin(uv.y * 10.0 - uv.x * 6.0) * 0.5 + 0.5;
+    float wave3 = sin((uv.x + uv.y) * 14.0) * 0.5 + 0.5;
+    
+    // Combine waves for organic glass distortion
+    float2 waveOffset = float2(
+        (wave1 - 0.5) * 2.0 + (wave3 - 0.5),
+        (wave2 - 0.5) * 2.0 + (wave3 - 0.5)
+    );
+    
+    // Apply radial falloff so edges distort more (like curved glass)
+    float edgeFactor = smoothstep(0.0, 0.7, dist);
+    float2 distortedUv = uv + waveOffset * distortionAmount * 0.1 * (0.3 + edgeFactor * 0.7);
+    
+    // Keep coordinates in valid range
+    distortedUv = clamp(distortedUv, float2(0.0), float2(1.0));
+    float2 distortedCoord = distortedUv * size;
+    
+    half4 col;
+    
+    // Apply chromatic aberration (color separation) for prismatic glass effect
+    if (chromaticAberration > 0.001) {
+        // Radial chromatic aberration - colors separate from center
+        float2 aberrationDir = dir * chromaticAberration * size.x * 0.5;
+        
+        float2 rCoord = clamp(distortedCoord + aberrationDir * 1.2, float2(0.0), size);
+        float2 gCoord = distortedCoord;
+        float2 bCoord = clamp(distortedCoord - aberrationDir * 1.2, float2(0.0), size);
+        
+        half4 rChannel = content.eval(rCoord);
+        half4 gChannel = content.eval(gCoord);
+        half4 bChannel = content.eval(bCoord);
+        
+        col = half4(rChannel.r, gChannel.g, bChannel.b, 1.0);
+    } else {
+        col = content.eval(distortedCoord);
+    }
+    
+    // Add subtle highlight/specular reflection on the glass surface
+    float highlight = pow(1.0 - dist, 3.0) * 0.15 * reflectionStrength;
+    col.rgb += half3(highlight);
+    
+    // Add edge glow effect simulating light bending at glass edges
+    float edgeGlow = smoothstep(0.3, 0.6, dist) * (1.0 - smoothstep(0.6, 0.8, dist));
+    col.rgb += half3(edgeGlow * 0.1 * reflectionStrength);
+    
+    // Apply vignette effect (darken edges for depth)
+    float vignette = 1.0 - smoothstep(0.2, 1.0, dist) * vignetteStrength;
+    col.rgb *= vignette;
+    
+    // Blend with original based on reflection strength
+    half4 originalColor = content.eval(coord);
+    col = mix(originalColor, col, reflectionStrength);
+    
+    return col;
+}"""
