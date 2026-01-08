@@ -4,5 +4,7 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This app uses the camera to demonstrate the Liquid Glass backdrop effect on live camera content.</string>
 </dict>
 </plist>

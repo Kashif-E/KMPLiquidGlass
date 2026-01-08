@@ -9,7 +9,7 @@ compose = "1.10.0"
 ksensor = "1.90.40"
 calf-file-picker = "0.9.0"
 ui-backhandler = "1.9.3"
-camerak = "0.0.12"
+camerax = "1.4.2"
 coroutines = "1.10.1"
 
 [libraries]
@@ -22,7 +22,9 @@ androidx-compose-material-ripple = { group = "androidx.compose.material", name =
 ksensor = { module = "io.github.shadmanadman:KSensor", version.ref = "ksensor" }
 calf-file-picker = { module = "com.mohamedrejeb.calf:calf-file-picker", version.ref = "calf-file-picker" }
 ui-backhandler = { module = "org.jetbrains.compose.ui:ui-backhandler", version.ref = "ui-backhandler" }
-camerak = { module = "io.github.kashif-mehmood-km:camerak", version.ref = "camerak" }
+camerax-core = { module = "androidx.camera:camera-core", version.ref = "camerax" }
+camerax-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camerax" }
+camerax-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camerax" }
 coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 
 [plugins]

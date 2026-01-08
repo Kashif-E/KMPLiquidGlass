@@ -57,7 +57,9 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ksensor)
-            implementation(libs.camerak)
+            implementation(libs.camerax.core)
+            implementation(libs.camerax.camera2)
+            implementation(libs.camerax.lifecycle)
         }
 
         val skiaMain by creating {
@@ -68,7 +70,6 @@ kotlin {
             dependsOn(skiaMain)
             dependencies {
                 implementation(libs.ksensor)
-                implementation(libs.camerak)
             }
         }
 
@@ -80,8 +81,11 @@ kotlin {
             dependsOn(skiaMain)
             dependencies {
                 implementation(libs.ui.backhandler)
-                implementation(libs.camerak)
                 implementation(libs.coroutines.swing)
+                // Native ARM64 compatible webcam library with AVFoundation support for macOS
+                implementation("com.github.sarxos:webcam-capture:0.3.12")
+                implementation("io.github.eduramiba:webcam-capture-driver-native:1.2.1")
+                implementation("net.java.dev.jna:jna:5.17.0")
             }
         }
 

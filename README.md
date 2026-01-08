@@ -25,7 +25,7 @@ KMP Liquid Glass lets you create frosted glass UI effects in Compose Multiplatfo
 
 ```kotlin
 commonMain.dependencies {
-    implementation("io.github.kashif-mehmood-km:backdrop:0.0.1-alpha01")
+    implementation("io.github.kashif-mehmood-km:backdrop:0.0.1-alpha02")
 }
 ```
 
@@ -33,7 +33,7 @@ For version catalog:
 
 ```toml
 [libraries]
-backdrop = { module = "io.github.kashif-mehmood-km:backdrop", version = "0.0.1-alpha01" }
+backdrop = { module = "io.github.kashif-mehmood-km:backdrop", version = "0.0.1-alpha02" }
 ```
 
 ## How it works

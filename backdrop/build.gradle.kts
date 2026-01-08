@@ -101,7 +101,7 @@ mavenPublishing {
     publishToMavenCentral()
      signAllPublications() // Disabled for local development - enable for release
 
-    coordinates("io.github.kashif-mehmood-km", "backdrop", "0.0.1-alpha01")
+    coordinates("io.github.kashif-mehmood-km", "backdrop", "0.0.1-alpha02")
 
     pom {
         name.set("Backdrop")

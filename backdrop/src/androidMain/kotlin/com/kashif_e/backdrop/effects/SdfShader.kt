@@ -34,6 +34,10 @@ actual class SdfShader(
         refractionHeight: Float = 48f.dp.toPx(),
         lightAngle: Float = 45f
     ) {
+        if (size.width.isNaN() || size.height.isNaN() || size.width <= 0f || size.height <= 0f) {
+            return
+        }
+        
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val shader = obtainRuntimeShader("SdfShader", SDF_SHADER_STRING).apply {
                 setInputBuffer("sdfTex", sdfTexture)
