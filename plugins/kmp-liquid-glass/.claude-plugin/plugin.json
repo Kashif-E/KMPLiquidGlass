@@ -1,0 +1,22 @@
+{
+  "name": "kmp-liquid-glass",
+  "version": "1.0.0",
+  "description": "Build iOS-style liquid glass / frosted glass UI components in Compose Multiplatform using the io.github.kashif-mehmood-km:backdrop library.",
+  "author": {
+    "name": "Kashif-E",
+    "url": "https://github.com/Kashif-E"
+  },
+  "homepage": "https://github.com/Kashif-E/KMPLiquidGlass",
+  "repository": "https://github.com/Kashif-E/KMPLiquidGlass",
+  "license": "Apache-2.0",
+  "keywords": [
+    "compose-multiplatform",
+    "kmp",
+    "liquid-glass",
+    "frosted-glass",
+    "glassmorphism",
+    "ios",
+    "ui-components",
+    "backdrop"
+  ]
+}

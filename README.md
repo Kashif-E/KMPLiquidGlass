@@ -36,6 +36,49 @@ For version catalog:
 backdrop = { module = "io.github.kashif-mehmood-km:backdrop", version = "0.0.1-alpha02" }
 ```
 
+## Use with Claude Code
+
+This repo is also a [Claude Code](https://claude.com/claude-code) plugin marketplace. Installing the `kmp-liquid-glass` skill teaches Claude (and any agent on Claude Code) the library's mental model, the full effect / component / shader API, and a curated set of recipes — so prompts like *"add a frosted glass tab bar"* or *"make this card iOS-style translucent"* produce correct, idiomatic code on the first try.
+
+### Install
+
+In any Claude Code session, run:
+
+```text
+/plugin marketplace add Kashif-E/KMPLiquidGlass
+/plugin install kmp-liquid-glass@kmp-liquid-glass-marketplace
+```
+
+Then reload plugins (or restart the session):
+
+```text
+/reload-plugins
+```
+
+### Verify
+
+Ask Claude something the skill should handle, for example:
+
+> Build a glass-style settings dialog using the `backdrop` library — title "Notifications", two toggle rows, Cancel/Save buttons. Heavy frosted look like an iOS alert.
+
+Claude should invoke the `kmp-liquid-glass` skill (you'll see it announce "Using kmp-liquid-glass …") and produce code that uses real APIs from `com.kashif_e.backdrop.*` with the correct effect ordering, dim placement, and z-order.
+
+> **Tip:** the skill is much more reliable when you mention the library by name in your prompt — say "use the backdrop library" or "iOS liquid glass" rather than just "make it glassy". Claude Code currently under-triggers skills for purely visual descriptions.
+
+### What's included
+
+The plugin ships a single skill — [`kmp-liquid-glass`](plugins/kmp-liquid-glass/skills/kmp-liquid-glass/SKILL.md) — with progressive references:
+
+- **`SKILL.md`** — mental model, decision tree, effect ordering rules, 12 pitfalls
+- **`references/effects.md`** — every effect with parameter ranges and recipes
+- **`references/components.md`** — full recipes for card, button, dialog, toggle, tab bar, search, FAB, sheet handle, sticky list header, scroll container with progressive blur
+- **`references/advanced.md`** — SDF shaders, magnifier (combined backdrops), custom `expect`/`actual` shaders, performance tuning
+- **`references/platform.md`** — exact API-level behavior matrix per effect, per platform
+
+### Using the skill from other agents
+
+The skill files are plain Markdown, so any agent that reads filesystem skills (Claude Agent SDK, custom harnesses, IDE extensions) can load `plugins/kmp-liquid-glass/skills/kmp-liquid-glass/SKILL.md` directly without going through the Claude Code marketplace.
+
 ## How it works
 
 The library uses a two-layer approach:

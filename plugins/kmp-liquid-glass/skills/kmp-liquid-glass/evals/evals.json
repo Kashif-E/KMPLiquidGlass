@@ -1,0 +1,47 @@
+{
+  "skill_name": "kmp-liquid-glass",
+  "evals": [
+    {
+      "id": 0,
+      "name": "eval-music-card",
+      "prompt": "I'm building a music app in Compose Multiplatform and I want a translucent now-playing card that floats over the album art with a play/pause button. Use the liquid glass library set up in this repo. The card should be a rounded rectangle and the button should be a circle with a tinted blue look.",
+      "files": [],
+      "expected_output": "A Kotlin file with a now-playing card composable that accepts a Backdrop, uses drawBackdrop with rounded shape + lens/blur/vibrancy effects, and a circular play/pause GlassButton tinted blue using BlendMode.Hue."
+    },
+    {
+      "id": 1,
+      "name": "eval-glass-dialog",
+      "prompt": "Add a glass-style settings dialog to my app — title 'Notifications', a body with two toggle rows, and Cancel/Save buttons at the bottom. It should use a heavy frosted glass effect like an iOS alert. Use the backdrop library.",
+      "files": [],
+      "expected_output": "A Kotlin file with a frosted dialog composable using drawBackdrop, heavy blur (>=8dp), colorControls/vibrancy, lens with depthEffect, Highlight.Plain, two toggle rows, and Cancel/Save buttons."
+    },
+    {
+      "id": 2,
+      "name": "eval-glass-tabs",
+      "prompt": "I need a bottom navigation bar with 4 tabs (Home, Search, Library, Profile) for my Compose Multiplatform app. Make it iOS-style — pill-shaped, with the selected tab highlighted in glass. The wallpaper image for the demo is Res.drawable.wallpaper.",
+      "files": [],
+      "expected_output": "A Kotlin file with a 4-tab bottom navigation bar, pill-shaped container using drawBackdrop with vibrancy/blur/lens, a separate selected indicator using drawBackdrop with chromaticAberration, and a usage example wiring the wallpaper through layerBackdrop."
+    },
+    {
+      "id": 3,
+      "name": "eval-progressive-blur",
+      "prompt": "I have a feed screen that scrolls under a translucent app bar at the top. I want the top 80dp to fade content into a frosted blur — content fully clear at the bottom of the fade and fully blurred where it meets the status bar. Build that header for me using the backdrop library.",
+      "files": [],
+      "expected_output": "A header composable using drawPlainBackdrop with progressiveBlur. Demo wires a scrolling Column or LazyColumn through layerBackdrop. fadeStart/fadeEnd configured so blur is full at top and clear at bottom."
+    },
+    {
+      "id": 4,
+      "name": "eval-magnifier",
+      "prompt": "Build a draggable magnifier — a circular glass lens that the user can drag around the screen, magnifying whatever's beneath it 1.5x with chromatic aberration around the edge. The content beneath is a paragraph of text on a colored background. Use the backdrop library.",
+      "files": [],
+      "expected_output": "Uses rememberLayerBackdrop for the content + (ideally) rememberCombinedBackdrop. drawBackdrop with circular shape and lens(depthEffect=true, chromaticAberration=true). onDrawBackdrop with withTransform { scale(1.5f, 1.5f) }. Drag handled with draggable2D or pointerInput."
+    },
+    {
+      "id": 5,
+      "name": "eval-list-header",
+      "prompt": "I have a LazyColumn list of items in my Compose Multiplatform app. I want a sticky frosted-glass header at the top of the list that blurs whatever rows scroll under it. The list items should be readable through the glass header but heavily blurred. Use the backdrop library.",
+      "files": [],
+      "expected_output": "A LazyColumn wired through Modifier.layerBackdrop(backdrop) so its rendered output (rows including any that scroll beneath the header) becomes the captured backdrop. A sticky header composable using drawBackdrop with strong blur. Mentions performance considerations (light effect stack since list moves)."
+    }
+  ]
+}

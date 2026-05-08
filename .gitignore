@@ -39,3 +39,6 @@ kotlin-js-store/
 
 # Scripts
 run-web.sh
+
+# Claude Code skill development workspaces (eval outputs, optimization logs)
+.claude/skills/*-workspace/
