@@ -392,8 +392,11 @@ See `references/platform.md` for full details.
 ## When to dive into references
 
 - `references/effects.md` — full parameter ranges, gotchas per effect, what each one looks like
-- `references/components.md` — complete recipes for tab bar, toggle, slider, dialog, control center, search field, FAB, sheet handle, glass card grid
-- `references/advanced.md` — SDF shaders, custom shaders (expect/actual), magnifier (combined backdrops + transformed sampling), camera/video backdrops, performance tuning
+- `references/helpers.md` — `inspectDragGestures`, `InteractiveHighlight`, `DampedDragAnimation` (catalog helper classes that drive the physics in the interactive recipes; copy them into your project)
+- `references/components.md` — sample-faithful recipes: `LiquidButton` (tanh drag-deformation), `LiquidToggle` (track + scaled-track-backdrop), `LiquidSlider` (velocity-squish thumb), `LiquidBottomTabs` (double-row tinted-spotlight trick), frosted dialog, glass card, search field, sheet handle, sticky frosted list header, scroll container with progressive blur edges, lazy column grid, demo scaffold
+- `references/advanced.md` — SDF shaders, magnifier (combined backdrops + `onDrawBackdrop` zoom), Control Center (drag-to-reveal with overshoot), Adaptive Luminance Glass, Lock Screen widget, Glass Playground (`exportedBackdrop` for sliders sampling their own sheet), camera/video as backdrop, custom shaders, performance tuning
 - `references/platform.md` — exact API-level behavior, what degrades where, custom shader templates for AGSL/SkSL
 
 When you've read SKILL.md and you're building anything beyond the inline recipes, open the matching reference. Don't guess — the parameters in this library have specific ranges and surprising defaults (e.g. `Highlight.width = 0.5dp` — small numbers).
+
+For interactive recipes (button, toggle, slider, bottom tabs), the catalog look depends on the helpers in `references/helpers.md`. If you skip them and use plain `animateFloatAsState`, you get the visual glass but not the spring/squish/velocity feel — open `helpers.md` first.
